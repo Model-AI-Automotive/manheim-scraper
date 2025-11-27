@@ -1,0 +1,75 @@
+services:
+  - type: worker
+    name: auction-scraper
+    env: python
+    plan: starter
+    buildCommand: "pip install -r requirements.txt && playwright install chromium"
+    startCommand: "python main.py search --make Honda --model Accord --max-pages 10"
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wholesale
+          property: connectionString
+
+      - key: ANTHROPIC_API_KEY
+        sync: false
+
+      - key: COPART_USERNAME
+        sync: false
+
+      - key: COPART_PASSWORD
+        sync: false
+
+      - key: PLAYWRIGHT_BROWSERS_PATH
+        value: /opt/render/project/.cache/ms-playwright
+
+databases:
+  - name: wholesale
+    plan: starter
+    databaseName: wholesale_o2hv
+    user: wholesale_o2hv_user
+    region: oregon
+
+# Cron Jobs (for scheduled scraping)
+cronJobs:
+  - type: worker
+    name: daily-honda-scrape
+    env: python
+    schedule: "0 2 * * *"  # Daily at 2 AM
+    buildCommand: "pip install -r requirements.txt && playwright install chromium"
+    startCommand: "python main.py search --make Honda --max-pages 20"
+
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wholesale
+          property: connectionString
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: COPART_USERNAME
+        sync: false
+      - key: COPART_PASSWORD
+        sync: false
+
+  - type: worker
+    name: daily-details-fetch
+    env: python
+    schedule: "0 4 * * *"  # Daily at 4 AM
+    buildCommand: "pip install -r requirements.txt && playwright install chromium"
+    startCommand: "python main.py fetch-details --limit 100"
+
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wholesale
+          property: connectionString
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: COPART_USERNAME
+        sync: false
+      - key: COPART_PASSWORD
+        sync: false

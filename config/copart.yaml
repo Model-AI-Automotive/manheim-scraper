@@ -1,0 +1,89 @@
+site: copart
+base_url: https://www.copart.com
+
+urls:
+  login: https://www.copart.com/login
+  search: https://www.copart.com/vehicleFinderSearch
+
+selectors:
+  # Login page
+  login:
+    username: "#username"
+    password: "#password"
+    submit: "button[type='submit'], #signin-btn"
+    error_message: ".login-error, .error-message, .alert-danger"
+    success_indicator: ".user-greeting, [data-uname='headerUsername'], .logged-in"
+
+  # Search/filter page
+  search:
+    make_input: "#input-group-make input, [data-uname='makeInput']"
+    make_dropdown: "#makes-list, .make-dropdown"
+    model_input: "#input-group-model input, [data-uname='modelInput']"
+    model_dropdown: "#models-list, .model-dropdown"
+    year_from: "#yearFrom, [data-uname='yearFromSelect']"
+    year_to: "#yearTo, [data-uname='yearToSelect']"
+    odometer_from: "#odometerFrom"
+    odometer_to: "#odometerTo"
+    search_button: "button[data-uname='searchBtn'], #searchBtn, .search-button"
+    clear_filters: "[data-uname='clearFilters'], .clear-filters"
+
+  # Results page
+  results:
+    listing_row: "[data-uname='lotsSearchResultsTable'] tbody tr, .search-results-row, .lot-row"
+    listing_card: ".lot-card, [data-lot-id]"
+    lot_link: "a[data-uname='lotsSearchLotNumberLink'], a.lot-link"
+    lot_number: "[data-uname='lotNumber'], .lot-number"
+    vehicle_info: ".vehicle-info, .lot-details"
+    current_bid: "[data-uname='currentBid'], .current-bid, .bid-price"
+    buy_now: "[data-uname='buyNowPrice'], .buy-now-price"
+    odometer: "[data-uname='odometer'], .odometer"
+    damage_type: "[data-uname='damageType'], .damage-type"
+    location: "[data-uname='location'], .yard-location"
+    sale_date: "[data-uname='saleDate'], .sale-date"
+    thumbnail: ".lot-image img, [data-uname='lotImage']"
+    no_results: ".no-results, .empty-results, [data-uname='noResults']"
+    pagination_next: "a[data-uname='nextPageLink']:not(.disabled), .pagination-next:not(.disabled)"
+    pagination_info: "[data-uname='paginationInfo'], .pagination-info"
+    total_count: "[data-uname='totalResultsCount'], .results-count"
+
+  # Detail page
+  detail:
+    title: "h1, .lot-title"
+    lot_number: "[data-uname='lotNumber'], .lot-number-detail"
+    vin: "[data-uname='VIN'] span, .vin-value, [data-test='vin']"
+    odometer: "[data-uname='odometer'], .odometer-value"
+    engine: "[data-uname='engine'], .engine-info"
+    transmission: "[data-uname='transmission'], .transmission-info"
+    drive_type: "[data-uname='driveType'], .drive-type"
+    fuel_type: "[data-uname='fuelType'], .fuel-type"
+    color: "[data-uname='color'], .exterior-color"
+    interior_color: "[data-uname='interiorColor'], .interior-color"
+    keys: "[data-uname='keys'], .keys-info"
+    airbags: "[data-uname='airbags'], .airbags-info"
+    damage_primary: "[data-uname='primaryDamage'], .primary-damage"
+    damage_secondary: "[data-uname='secondaryDamage'], .secondary-damage"
+    seller: "[data-uname='seller'], .seller-info"
+    title_type: "[data-uname='titleType'], .title-type"
+    sale_date: "[data-uname='saleDate'], .auction-date"
+    location: "[data-uname='yardLocation'], .yard-info"
+    current_bid: "[data-uname='currentBid'], .current-bid-detail"
+    buy_now: "[data-uname='buyNow'], .buy-now-detail"
+    images: ".gallery-image img, [data-uname='galleryImage'] img, .vehicle-image"
+    description: ".lot-description, [data-uname='lotDescription']"
+    specs_table: ".vehicle-specs tr, .lot-specs-table tr"
+
+# Timeouts in milliseconds
+timeouts:
+  navigation: 30000
+  element: 10000
+  page_load: 60000
+
+# Rate limiting to avoid detection
+rate_limit:
+  min_delay_ms: 2000
+  max_delay_ms: 5000
+
+# Retry configuration
+retries:
+  max_attempts: 3
+  backoff_ms: 1000

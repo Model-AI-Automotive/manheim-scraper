@@ -1,14 +1,7 @@
-# Database
-psycopg2-binary==2.9.9
-
-# Browser Automation
 playwright==1.40.0
-
-# Environment Variables
+anthropic==0.18.0
+asyncpg==0.29.0
+pydantic==2.5.0
+pyyaml==6.0.1
+click==8.1.7
 python-dotenv==1.0.0
-
-# HTTP Requests
-requests==2.31.0
-
-# Utilities
-python-dateutil==2.8.2
