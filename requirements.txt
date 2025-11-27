@@ -1,0 +1,14 @@
+# Database
+psycopg2-binary==2.9.9
+
+# Browser Automation
+playwright==1.40.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# HTTP Requests
+requests==2.31.0
+
+# Utilities
+python-dateutil==2.8.2
